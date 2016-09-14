@@ -9,6 +9,7 @@ var chromeLocation = require('chrome-location');
 var HeadlessChromeBrowser = function(baseBrowserDecorator, args) {
 
   var self = this;
+  var chromeProcess;
   baseBrowserDecorator(this);
 
   this.name = 'HeadlessChrome';
@@ -16,13 +17,15 @@ var HeadlessChromeBrowser = function(baseBrowserDecorator, args) {
   this.start = function (url) {
 
     if (!chromeLocation) {
-      this._done('Cannot find Chrome executable.');
+      console.error('Cannot find Chrome executable.');
+      this.kill();
     }
 
     try {
       whichSync('Xvfb');
     } catch (e) {
-      this._done('Cannot find Xvfb executable.');
+      console.error('Cannot find Xvfb executable.');
+      this.kill();
     }
 
     var chromeFlags = [
@@ -45,29 +48,19 @@ var HeadlessChromeBrowser = function(baseBrowserDecorator, args) {
       ]
     });
 
-    function quit() {
-      xvfb.stop(function(err) {
-        console.log(err);
-      });
-    }
+    xvfb.startSync();
 
-    xvfb.start(function(err, xvfbProcess) {
-      if (err) {
-        self._done('Failed to start Xvfb: ' + err);
-        return;
-      }
+    chromeProcess = spawn(chromeLocation, chromeFlags);
 
-      var crProcess = spawn(chromeLocation, chromeFlags);
-
-      crProcess.on('exit', function () {
-        self.kill(quit);
-      });
+    chromeProcess.on('exit', function() {
+      xvfb.stopSync();
     });
 
   };
 
   this.kill = function (done) {
     function allDone() {
+      chromeProcess.exit();
       if (done) {
         done();
       }

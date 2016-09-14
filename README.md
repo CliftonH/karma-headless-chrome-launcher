@@ -1,1 +1,1 @@
-# karma-headless-chrome-launcher
+# karma-headless-chrome-launcher (WIP, currently does nothing)

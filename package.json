@@ -1,0 +1,15 @@
+{
+  "name": "karma-headless-chrome-launcher",
+  "version": "0.0.2",
+  "description": "A Karma plugin. Launcher for headless Chrome and Chromium.",
+  "author": "Clifton Hensley <clifton.hensley@gmail.com>",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": "git://github.com/CliftonH/karma-headless-chrome-launcher",
+  "dependencies": {
+    "chrome-location": "1.2.1",
+    "rimraf": "2.5.4",
+    "which": "1.2.11",
+    "xvfb": "0.2.3"
+  }
+}

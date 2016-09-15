@@ -1,6 +1,6 @@
 {
   "name": "karma-headless-chrome-launcher",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A Karma plugin. Launcher for headless Chrome and Chromium.",
   "author": "Clifton Hensley <clifton.hensley@gmail.com>",
   "main": "index.js",

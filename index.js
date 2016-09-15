@@ -65,7 +65,7 @@ var HeadlessChromeBrowser = function(baseBrowserDecorator, args) {
         done();
       }
     }
-    let deferred = q.defer();
+    var deferred = q.defer();
     xvfb.stop(function() {
       chromeProcess.kill('SIGINT');
       deferred.promise.then(allDone);
